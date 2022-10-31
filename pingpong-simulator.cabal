@@ -1,0 +1,150 @@
+name:           pingpong-simulator
+version:        0.3.1.4
+description:    Please see the README on GitHub at <https://git.science.uu.nl/moma/pingpong#readme>
+homepage:       https://git.science.uu.nl/moma/pingpong#readme
+bug-reports:    https://git.science.uu.nl/moma/pingpong/issues
+author:         Maarten Löffler
+copyright:      2022 Maarten Löffler
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+
+cabal-version: 2.0
+source-repository head
+  type: git
+  location: https://git.science.uu.nl/moma/pingpong
+
+library
+  exposed-modules:
+    PingPong
+    PingPong.Draw
+    PingPong.Draw.Gloss
+    PingPong.Draw.Rasterific
+    PingPong.Model
+    PingPong.Model.Parameters
+    PingPong.Model.Random
+    PingPong.Model.AlmostEqual 
+    PingPong.Player
+    PingPong.Simulation  
+    PingPong.Simulation.Collision  
+    PingPong.Simulation.Recording
+    PingPong.Simulation.Realtime
+    PingPong.Simulation.ForwardKinematics
+    PingPong.Simulation.InverseKinematics
+    PingPong.Communication.Interface
+    PingPong.Communication.JSON
+    PingPong.Submissions
+    PingPong.Submission
+    PingPong.Submission.ExampleNativeSubmission
+    PingPong.Submission.ModelNativeSubmission
+  other-modules:
+    PingPong.Grading
+    PingPong.Grading.Types
+    PingPong.Grading.Assignments
+    PingPong.Grading.Reports
+    PingPong.Grading.B1.Checker
+    PingPong.Grading.B2.Checker 
+    PingPong.Grading.B3.Checker
+    PingPong.Grading.B4.Checker
+    PingPong.Grading.B5.Checker
+    PingPong.Grading.B6.Checker
+    PingPong.Grading.B7.Checker
+    PingPong.Grading.B1.Types
+    PingPong.Grading.B2.Types
+    PingPong.Grading.B3.Types
+    PingPong.Grading.B4.Types
+    PingPong.Grading.B5.Types
+    PingPong.Grading.B6.Types
+    PingPong.Grading.B7.Types    
+    Convert
+  hs-source-dirs:
+      src
+    , test
+  build-depends:
+      base >=4.7 && <5
+    , ghc      
+    , hgeometry >= 0.14 
+    , hgeometry-combinatorial >= 0.12
+    , JuicyPixels
+    , FontyFruity
+    , Rasterific
+    , gloss
+    , gloss-juicy
+    , colour
+    , vector
+    , lens
+    , containers
+    , vinyl
+    , process
+    , directory, filepath
+    , random
+    , deepseq
+    , network
+    , network-simple
+    , utf8-string
+    , data-default
+    , aeson
+    , composition
+    , bytestring
+  default-language: Haskell2010
+  default-extensions: TypeFamilies
+                    , GADTs
+                    , KindSignatures
+                    , DataKinds
+                    , TypeOperators
+                    , ConstraintKinds
+                    , PolyKinds
+                    , RankNTypes
+                    , TypeApplications
+                    , ScopedTypeVariables
+
+                    , PatternSynonyms
+                    , TupleSections
+                    , LambdaCase
+                    , ViewPatterns
+
+                    , StandaloneDeriving
+                    , GeneralizedNewtypeDeriving
+                    , DeriveFunctor
+                    , DeriveFoldable
+                    , DeriveTraversable
+                    , DeriveGeneric
+
+
+                    , FlexibleInstances
+                    , FlexibleContexts
+                    , MultiParamTypeClasses
+
+executable pingpong-simulator-exe
+  main-is: Main.hs 
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , pingpong-simulator
+  default-language: Haskell2010
+  c-sources:       
+      src/PingPong/C/player.c
+  include-dirs:
+      src/PingPong/C/
+    , C:\Users\Max\AppData\Local\Programs\Python\Python38\include
+  extra-lib-dirs:
+    C:\Users\Max\AppData\Local\Programs\Python\Python38
+  extra-libraries:
+    python3
+
+
+test-suite pingpong-simulator-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , pingpong-simulator
+  default-language: Haskell2010
+ 
